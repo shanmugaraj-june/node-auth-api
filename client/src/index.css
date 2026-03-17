@@ -1,0 +1,78 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background: #f5f4ef;
+  color: #1a1a18;
+  line-height: 1.6;
+}
+
+/* ── Auth layout ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.12);
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card h1 { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.25rem; }
+.auth-sub     { font-size: 0.9rem; color: #73726c; margin-bottom: 1.75rem; }
+
+/* ── Form fields ── */
+.field        { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1rem; }
+.field label  { font-size: 0.85rem; font-weight: 500; color: #3d3d3a; }
+
+.field input,
+.field select {
+  padding: 0.6rem 0.75rem;
+  border: 0.5px solid rgba(0,0,0,0.2);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: #1a1a18;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.field input:focus,
+.field select:focus { border-color: #534AB7; box-shadow: 0 0 0 3px rgba(83,74,183,0.12); }
+
+/* ── Buttons ── */
+.btn-primary {
+  width: 100%;
+  padding: 0.7rem;
+  background: #534AB7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-primary:hover    { background: #3C3489; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Alert ── */
+.alert {
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+.alert-error { background: #FCEBEB; color: #A32D2D; border: 0.5px solid #F09595; }
+
+/* ── Footer link ── */
+.auth-footer      { text-align: center; font-size: 0.875rem; color: #73726c; margin-top: 1.25rem; }
+.auth-footer a    { color: #534AB7; text-decoration: none; font-weight: 500; }
+.auth-footer a:hover { text-decoration: underline; }
