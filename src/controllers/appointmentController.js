@@ -109,6 +109,7 @@ const getMyAppointments = async (req, res) => {
     const result = await pool.query(
       `SELECT
          a.id,
+         a.doctor_id, 
          a.status,
          a.notes,
          a.created_at,
@@ -198,6 +199,126 @@ const cancelAppointment = async (req, res) => {
   } finally {
     client.release();
   }
+}; 
+
+// ─── GET /api/appointments/doctor ────────────────────────────
+// Returns all appointments for the logged-in doctor
+const getDoctorAppointments = async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    // Resolve user → doctor profile
+    const doctorRes = await pool.query(
+      'SELECT id FROM doctors WHERE user_id = $1',
+      [userId]
+    );
+    if (doctorRes.rows.length === 0) {
+      return res.status(404).json({ error: 'Doctor profile not found' });
+    }
+    const doctorId = doctorRes.rows[0].id;
+
+    const result = await pool.query(
+      `SELECT
+         a.id,
+         a.status,
+         a.notes,
+         a.created_at,
+         s.slot_date,
+         s.start_time,
+         s.end_time,
+         u.name       AS patient_name,
+         u.email      AS patient_email
+       FROM appointments a
+       JOIN slots s ON s.id   = a.slot_id
+       JOIN users u ON u.id   = a.patient_id
+       WHERE a.doctor_id = $1
+       ORDER BY s.slot_date ASC, s.start_time ASC`,
+      [doctorId]
+    );
+
+    return res.status(200).json({
+      count: result.rows.length,
+      appointments: result.rows,
+    });
+
+  } catch (err) {
+    console.error('getDoctorAppointments error:', err.message);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+// ─── PATCH /api/appointments/:id/status ──────────────────────
+// Doctor updates an appointment to confirmed or completed
+const updateAppointmentStatus = async (req, res) => {
+  const { id }     = req.params;
+  const { status } = req.body;
+  const userId     = req.user.userId;
+
+  const allowed = ['confirmed', 'completed', 'cancelled'];
+  if (!allowed.includes(status)) {
+    return res.status(400).json({ error: `Status must be one of: ${allowed.join(', ')}` });
+  }
+
+  if (isNaN(id)) {
+    return res.status(400).json({ error: 'Appointment ID must be a number' });
+  }
+
+  try {
+    // Confirm the appointment belongs to this doctor
+    const check = await pool.query(
+      `SELECT a.id, a.status, a.slot_id
+       FROM appointments a
+       JOIN doctors d ON d.id = a.doctor_id
+       WHERE a.id = $1 AND d.user_id = $2`,
+      [id, userId]
+    );
+
+    if (check.rows.length === 0) {
+      return res.status(404).json({ error: 'Appointment not found or not yours' });
+    }
+
+    const current = check.rows[0];
+
+    // Guard illegal transitions
+    if (current.status === 'cancelled') {
+      return res.status(400).json({ error: 'Cannot update a cancelled appointment' });
+    }
+    if (current.status === 'completed') {
+      return res.status(400).json({ error: 'Appointment is already completed' });
+    }
+
+    const client = await pool.connect();
+    try {
+      await client.query('BEGIN');
+
+      await client.query(
+        'UPDATE appointments SET status = $1 WHERE id = $2',
+        [status, id]
+      );
+
+      // If doctor cancels — free the slot back
+      if (status === 'cancelled') {
+        await client.query(
+          'UPDATE slots SET is_available = true WHERE id = $1',
+          [current.slot_id]
+        );
+      }
+
+      await client.query('COMMIT');
+    } catch (err) {
+      await client.query('ROLLBACK');
+      throw err;
+    } finally {
+      client.release();
+    }
+
+    return res.status(200).json({ message: `Appointment marked as ${status}` });
+
+  } catch (err) {
+    console.error('updateAppointmentStatus error:', err.message);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 };
 
 module.exports = {
@@ -205,4 +326,6 @@ module.exports = {
   bookAppointment,
   getMyAppointments,
   cancelAppointment,
+  getDoctorAppointments,      
+  updateAppointmentStatus,    
 };

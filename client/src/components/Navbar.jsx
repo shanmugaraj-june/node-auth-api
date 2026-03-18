@@ -15,12 +15,8 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [location]);
+  useEffect(() => { setMenuOpen(false); }, [location]);
 
-  // Close menu on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
@@ -31,14 +27,24 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Lock body scroll when menu is open
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
+  // Shared nav links — single source of truth for both desktop + mobile
+  const NavLinks = () =>
+    user?.role === 'doctor' ? (
+      <Link to="/dashboard">My Schedule</Link>
+    ) : (
+      <>
+        <Link to="/doctors">Doctors</Link>
+        {isLoggedIn && <Link to="/appointments">My Appointments</Link>}
+      </>
+    );
+
   return (
-   <div  ref={menuRef}> 
+    <div ref={menuRef}>
       <nav className="navbar">
         <Link to="/" className="nav-brand" onClick={() => setMenuOpen(false)}>
           MediBook
@@ -46,8 +52,7 @@ const Navbar = () => {
 
         {/* Desktop links */}
         <div className="nav-links nav-links--desktop">
-          <Link to="/doctors">Doctors</Link>
-          {isLoggedIn && <Link to="/appointments">My Appointments</Link>}
+          <NavLinks />
         </div>
 
         {/* Desktop auth */}
@@ -65,24 +70,21 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Hamburger button (mobile only) */}
+        {/* Hamburger (mobile only) */}
         <button
           className={`hamburger ${menuOpen ? 'hamburger--open' : ''}`}
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle navigation menu"
           aria-expanded={menuOpen}
         >
-          <span />
-          <span />
-          <span />
+          <span /><span /><span />
         </button>
       </nav>
 
       {/* Mobile drawer */}
       <div className={`mobile-drawer ${menuOpen ? 'mobile-drawer--open' : ''}`}>
         <div className="mobile-drawer__links">
-          <Link to="/doctors">Doctors</Link>
-          {isLoggedIn && <Link to="/appointments">My Appointments</Link>}
+          <NavLinks />
         </div>
         <div className="mobile-drawer__auth">
           {isLoggedIn ? (
@@ -103,7 +105,7 @@ const Navbar = () => {
       {menuOpen && (
         <div className="mobile-backdrop" onClick={() => setMenuOpen(false)} />
       )}
-   </div>
+    </div>
   );
 };
 

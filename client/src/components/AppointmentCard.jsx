@@ -55,12 +55,15 @@ const AppointmentCard = ({ appointment, onCancel, formatDate, formatTime, isPast
         </div>
 
         <div className="appt-actions">
-          <button
-            className="btn-ghost btn-sm"
-            onClick={() => navigate(`/doctors/${appointment.doctor_id}`)}
-          >
-            View doctor
-          </button>
+         <button
+  className="btn-ghost btn-sm"
+  onClick={() => {
+    console.log('Navigating to doctor id:', appointment.doctor_id);
+    navigate(`/doctors/${appointment.doctor_id}`);
+  }}
+>
+  View doctor
+</button>
           {canCancel && (
             <button
               className="btn-danger-ghost btn-sm"

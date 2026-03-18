@@ -3,16 +3,16 @@ TRUNCATE appointments, slots, doctors, users RESTART IDENTITY CASCADE;
 
 -- ─── Seed users (doctors) ──────────────────────────────────────
 INSERT INTO users (name, email, password_hash, role) VALUES
-  ('Dr. Priya Sharma',   'priya@clinic.com',   '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake1', 'doctor'),
-  ('Dr. Arjun Mehta',    'arjun@clinic.com',   '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake2', 'doctor'),
-  ('Dr. Sneha Nair',     'sneha@clinic.com',   '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake3', 'doctor'),
-  ('Dr. Karthik Raj',    'karthik@clinic.com', '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake4', 'doctor'),
-  ('Dr. Meena Iyer',     'meena@clinic.com',   '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake5', 'doctor');
+  ('Dr. Priya Sharma',   'priya@clinic.com',   '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'doctor'),
+  ('Dr. Arjun Mehta',    'arjun@clinic.com',   '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'doctor'),
+  ('Dr. Sneha Nair',     'sneha@clinic.com',   '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'doctor'),
+  ('Dr. Karthik Raj',    'karthik@clinic.com', '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'doctor'),
+  ('Dr. Meena Iyer',     'meena@clinic.com',   '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'doctor');
 
 -- ─── Seed users (patients) ─────────────────────────────────────
 INSERT INTO users (name, email, password_hash, role) VALUES
-  ('Arun Kumar',   'arun@example.com',  '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake6', 'patient'),
-  ('Divya Pillai', 'divya@example.com', '$2b$10$abcdefghijklmnopqrstuuVfjWGT6ZyMoIJ3e4W1nFqOiP.fake7', 'patient');
+  ('Arun Kumar',   'arun@example.com',  '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'patient'),
+  ('Divya Pillai', 'divya@example.com', '$2b$10$FAURamcgzgHcWOjpfx4Yketn3DV392fqNk0/d1CUGh.ZDDEH8/Lpy', 'patient');
 
 -- ─── Seed doctors (profiles) ───────────────────────────────────
 INSERT INTO doctors (user_id, specialization, phone) VALUES

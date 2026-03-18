@@ -514,4 +514,40 @@ body {
 .appt-empty p   { font-size: 0.9rem; }
 
 /* ── Cancel warning ── */
-.cancel-warning { font-size: 0.875rem; color: #5f5e5a; padding: 0.75rem; background: #FAEEDA; border-radius: 8px; margin-bottom: 0.5rem; line-height: 1.5; }
+.cancel-warning { font-size: 0.875rem; color: #5f5e5a; padding: 0.75rem; background: #FAEEDA; border-radius: 8px; margin-bottom: 0.5rem; line-height: 1.5; } 
+
+
+/* ── Stats row ── */
+.stats-row     { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+@media (max-width: 540px) { .stats-row { grid-template-columns: repeat(2, 1fr); } }
+
+.stat-card     { background: #fff; border: 0.5px solid rgba(0,0,0,0.1); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 4px; }
+.stat-highlight{ border-color: #534AB7; background: #EEEDFE; }
+.stat-value    { font-size: 1.6rem; font-weight: 500; color: #1a1a18; line-height: 1; }
+.stat-highlight .stat-value { color: #3C3489; }
+.stat-label    { font-size: 0.75rem; color: #73726c; }
+.stat-highlight .stat-label { color: #534AB7; }
+
+/* ── Tabs ── */
+.dash-tabs     { display: flex; gap: 4px; margin-bottom: 1.25rem; border-bottom: 0.5px solid rgba(0,0,0,0.1); }
+.dash-tab      { padding: 8px 14px; font-size: 0.875rem; background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; color: #73726c; display: flex; align-items: center; gap: 6px; margin-bottom: -0.5px; transition: color 0.15s; }
+.dash-tab:hover      { color: #534AB7; }
+.dash-tab-active     { color: #534AB7; border-bottom-color: #534AB7; font-weight: 500; }
+
+.tab-count     { background: #EEEDFE; color: #3C3489; font-size: 0.7rem; font-weight: 600; padding: 1px 6px; border-radius: 10px; }
+.dash-tab-active .tab-count { background: #534AB7; color: #fff; }
+
+/* ── Patient avatar ── */
+.patient-avatar { width: 36px; height: 36px; border-radius: 50%; background: #EEEDFE; color: #3C3489; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+
+/* ── Doctor action buttons ── */
+.btn-confirm         { background: #EAF3DE; color: #27500A; border: 0.5px solid #97C459; border-radius: 6px; padding: 5px 12px; font-size: 0.8rem; cursor: pointer; font-weight: 500; transition: background 0.15s; }
+.btn-confirm:hover   { background: #C0DD97; }
+.btn-confirm:disabled{ opacity: 0.6; cursor: not-allowed; }
+
+.btn-complete        { background: #534AB7; color: #fff; border: none; border-radius: 7px; padding: 6px 14px; font-size: 0.875rem; cursor: pointer; font-weight: 500; transition: background 0.15s; }
+.btn-complete:hover  { background: #3C3489; }
+.btn-complete:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-complete-sm     { background: #EEEDFE; color: #3C3489; border: 0.5px solid #AFA9EC; border-radius: 6px; cursor: pointer; font-weight: 500; transition: background 0.15s; }
+.btn-complete-sm:hover { background: #CECBF6; }
