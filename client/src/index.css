@@ -448,3 +448,70 @@ body {
 .skel-line.narrow  { width: 35%; }
 .slot-skel-grid    { display: flex; flex-wrap: wrap; gap: 8px; }
 .slot-skel         { width: 80px; height: 36px; border-radius: 8px; background: var(--color-background-secondary); animation: shimmer 1.4s infinite; }
+
+
+/* ── Section titles ── */
+.appt-section   { margin-bottom: 2.5rem; }
+.section-title  { font-size: 0.8rem; font-weight: 500; text-transform: uppercase;
+                  letter-spacing: 0.06em; color: #73726c; margin-bottom: 0.875rem; }
+
+/* ── Appointment list ── */
+.appt-list      { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Appointment card ── */
+.appt-card {
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.1);
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.appt-card:hover       { border-color: rgba(0,0,0,0.2); }
+.appt-card-past        { opacity: 0.72; }
+.appt-card-past:hover  { opacity: 1; }
+
+.appt-accent { width: 4px; flex-shrink: 0; }
+.appt-body   { flex: 1; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: 8px; }
+
+.appt-top    { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.appt-main   { display: flex; flex-direction: column; gap: 2px; }
+
+.appt-doctor      { font-size: 0.95rem; font-weight: 500; color: #1a1a18; }
+.appt-specialty   { font-size: 0.8rem; color: #73726c; }
+
+.appt-status {
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 0.75rem; font-weight: 500;
+  white-space: nowrap; flex-shrink: 0;
+}
+
+.appt-meta       { display: flex; flex-direction: column; gap: 4px; }
+.appt-meta-item  { display: flex; align-items: center; gap: 6px; font-size: 0.825rem; color: #5f5e5a; }
+.meta-icon       { color: #b4b2a9; font-size: 0.8rem; width: 14px; text-align: center; }
+.appt-notes      { color: #73726c; font-style: italic; }
+
+.appt-actions    { display: flex; gap: 8px; margin-top: 2px; }
+
+.btn-sm          { padding: 5px 12px; font-size: 0.8rem; border-radius: 6px; cursor: pointer; }
+.btn-danger-ghost {
+  background: none; border: 0.5px solid rgba(226,75,74,0.35);
+  color: #A32D2D; transition: all 0.15s;
+}
+.btn-danger-ghost:hover { background: #FCEBEB; border-color: #E24B4A; }
+.btn-danger {
+  background: #E24B4A; color: #fff; border: none;
+  border-radius: 7px; padding: 6px 14px;
+  font-size: 0.875rem; cursor: pointer; font-weight: 500;
+  transition: background 0.15s;
+}
+.btn-danger:hover    { background: #A32D2D; }
+.btn-danger:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* ── Empty states ── */
+.appt-empty     { text-align: center; padding: 2.5rem 1rem; color: #73726c; display: flex; flex-direction: column; align-items: center; gap: 0.6rem; background: #fff; border: 0.5px solid rgba(0,0,0,0.08); border-radius: 12px; }
+.empty-icon     { font-size: 1.5rem; color: #b4b2a9; }
+.appt-empty p   { font-size: 0.9rem; }
+
+/* ── Cancel warning ── */
+.cancel-warning { font-size: 0.875rem; color: #5f5e5a; padding: 0.75rem; background: #FAEEDA; border-radius: 8px; margin-bottom: 0.5rem; line-height: 1.5; }

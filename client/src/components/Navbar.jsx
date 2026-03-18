@@ -38,8 +38,8 @@ const Navbar = () => {
   }, [menuOpen]);
 
   return (
-    <>
-      <nav className="navbar" ref={menuRef}>
+   <div  ref={menuRef}> 
+      <nav className="navbar">
         <Link to="/" className="nav-brand" onClick={() => setMenuOpen(false)}>
           MediBook
         </Link>
@@ -103,7 +103,7 @@ const Navbar = () => {
       {menuOpen && (
         <div className="mobile-backdrop" onClick={() => setMenuOpen(false)} />
       )}
-    </>
+   </div>
   );
 };
 
