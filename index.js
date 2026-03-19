@@ -12,7 +12,13 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/doctors', doctorRoutes); // ← add 
-app.use('/api/appointments', appointmentRoutes); // ← add
+app.use('/api/appointments', appointmentRoutes); // ← add 
+
+app.use(cors({
+  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  credentials: true,
+}));
+
 
 // Health check
 app.get('/', (req, res) => res.json({ status: 'ok' }));
