@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL
+    ? `${import.meta.env.VITE_API_URL}/api`
+    : '/api',
 });
 
-// Attach JWT to every outgoing request automatically
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -13,7 +14,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Global response interceptor — auto logout on 401
 api.interceptors.response.use(
   (response) => response,
   (error) => {
